@@ -40,8 +40,21 @@ class GramatuKatalogs():
         self.gramatas = {}
     
     def pievienot(self, gramata):
-        self.gramatas.update(gramata)
-        print(f"Grāmata {gramata} ir veiksmīgi pievienota.")
+        self.gramatas[gramata] = gramata
+        print(f"Grāmata {gramata.nosaukums} ir veiksmīgi pievienota.")
+    def atjauninat_statusu(self, ISBN, jauns_statuss):
+        for i in self.gramatas:
+            if i.ISBN == ISBN:
+                i.pieejamiba = jauns_statuss
+                return print(f'Grāmatai ar ISBN "{ISBN}" statuss ir atjaunināts uz {jauns_statuss}.')
+        print(f'Grāmata ar ISBN "{ISBN}" nav atrasta katalogā.')
+    def nonemt(self, ISBN):
+        for i in self.gramatas:
+            if i.ISBN == ISBN:
+                self.gramatas.pop(i)
+                return print(f'Grāmata ar ISBN "{ISBN}" ir veiksmīgi nodzēsta no kataloga.')
+        print(f'Grāmata ar ISBN "{ISBN}" nav atrasta katalogā.')
+        
 
 
 
@@ -55,3 +68,5 @@ harijs.aprekinat(10)
 katalogs = GramatuKatalogs()
 katalogs.pievienot(harijs)
 katalogs.pievienot(epifanijas)
+katalogs.atjauninat_statusu("9780747532699", "nav pieejama")
+katalogs.nonemt("9789934036101")
